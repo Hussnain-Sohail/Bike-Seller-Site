@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Bike from './ProductSchema.ts';
+import Bike from './ProductSchema.mjs';
 const userSchema = new mongoose.Schema({
     Name: String,
     Age: Number,
@@ -7,8 +7,13 @@ const userSchema = new mongoose.Schema({
     Address: String,
     contactNumber: String,
     bikeProduct: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Bike'
+        type: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Bike'
+            }
+        ],
+        default: [],
     },
 });
 
