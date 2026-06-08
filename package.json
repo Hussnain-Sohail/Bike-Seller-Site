@@ -1,0 +1,29 @@
+{
+  "name": "bikesellersite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hussnain-Sohail/Bike-Seller-Site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Hussnain-Sohail/Bike-Seller-Site/issues"
+  },
+  "homepage": "https://github.com/Hussnain-Sohail/Bike-Seller-Site#readme",
+  "devDependencies": {
+    "tsx": "^4.22.4"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/dotenv": "^6.1.1",
+    "dotenv": "^17.4.2"
+  }
+}
