@@ -1,15 +1,26 @@
-import { v2 as cloudinary, UploadApiResponse } from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
+import type { UploadApiResponse } from 'cloudinary';
 import dotenv from 'dotenv';
 import type { Request, Response } from 'express';
 dotenv.config();
-import User from '../model/UserSchema.mjs';
-import Bike from '../model/ProductSchema.mjs';
+import User from '../model/UserSchema.mts';
+import Bike from '../model/ProductSchema.mts';
+import type { Types } from 'mongoose';
 
 cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.CLOUD_API_SECRET,
-    api_secret: process.env.CLOUD_API_SECRET,
+    cloud_name: process.env.CLOUD_NAME!,
+    api_key: process.env.CLOUD_API_KEY!,
+    api_secret: process.env.CLOUD_API_SECRET!,
 });
+
+interface bikeData {
+    companyName: string,
+    bikeName: string,
+    bikePrice: number,
+    bikeModel: string,
+    additionalInformation: string | undefined,
+    imageURL: string,
+};
 async function UploadBike(req: Request, res: Response): Promise<void> {
     try {
         if (!req.body) {
@@ -21,11 +32,11 @@ async function UploadBike(req: Request, res: Response): Promise<void> {
         }
         const userId: string = req.user!.userId;
 
-        const { companyName, bikeName, bikePrice, bikeModel, additioanlInformation, imageURL } = req.body;
-        if (!companyName || !bikeName || !bikePrice || !bikeModel || !imageURL) {
+        const bike = req.body as bikeData;
+        if (!bike.companyName || !bike.bikeName || !bike.bikePrice || !bike.bikeModel || !bike.imageURL) {
             res.status(400).json({ message: "All fields are required for uloading bike" });
             return;
-        } else if (bikePrice <= 0) {
+        } else if (bike.bikePrice <= 0) {
             res.status(400).json({ message: "Enter valid bike price" });
             return;
         }
@@ -36,14 +47,14 @@ async function UploadBike(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        const uploaded: UploadApiResponse = await cloudinary.uploader.upload(imageURL);
+        const uploaded: UploadApiResponse = await cloudinary.uploader.upload(bike.imageURL);
 
         const newBike = new Bike({
-            companyName: companyName,
-            bikeName: bikeName,
-            bikePrice: bikePrice,
-            bikeModel: bikeModel,
-            additioanlInformation: additioanlInformation,
+            companyName: bike.companyName,
+            bikeName: bike.bikeName,
+            bikePrice: bike.bikePrice,
+            bikeModel: bike.bikeModel,
+            additionalInformation: bike.additionalInformation,
             imagePublicId: uploaded.public_id,
             imageURL: uploaded.secure_url,
             dateUploaded: new Date().toISOString(),
@@ -52,7 +63,6 @@ async function UploadBike(req: Request, res: Response): Promise<void> {
         await newBike.save();
 
         findUser.bikeProduct.push(newBike._id);
-
         await findUser.save();
 
         res.status(200).json({ message: 'Bike uploaded successfully' });
