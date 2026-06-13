@@ -1,0 +1,44 @@
+#container {
+    width: 400px;
+    height: 450px;
+    background-color: rgb(22, 176, 237);
+
+    border-radius: 15px;
+    border: 3px solid white;
+}
+
+.label {
+    font-size: xx-large;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.input {
+    width: 300px;
+    height: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 3px solid white;
+    border-radius: 3px;
+}
+
+.input:hover {
+    border: 3px solid black;
+    border-radius: 6px;
+}
+
+#button {
+    width: 300px;
+    height: 40px;
+    background-color: rgb(13, 111, 149);
+    font-size: x-large;
+    color: white;
+    border-radius: 20px;
+    border: 2px solid white;
+    margin: 10px;
+    margin-bottom: 10px;
+}
+
+#button:hover {
+    border: 2px solid black;
+}

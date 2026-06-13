@@ -1,7 +1,9 @@
 import MainPage from "./MainPage";
 import Aboutus from "./Aboutus";
-import Signup from "./Signup"
-import Login from "./Login"
+import Signup from "./Signup";
+import Login from "./Login";
+import UploadBike from "./UploadBike";
+import Protect from "./Protect";
 import { Routes, Route } from 'react-router';
 
 function App() {
@@ -11,7 +13,9 @@ function App() {
       <Route path="/aboutus" element={<Aboutus />} />
       <Route path="/user/signup" element={<Signup />} />
       <Route path="/user/login" element={<Login />} />
+      <Route path="/user/uploadbike" element={<Protect><UploadBike /></Protect>} />
     </Routes>
-  )
+  );
 }
+
 export default App

@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { AuthProvider } from "./AccessTokenProvider";
+import './css/Signup.css'
 function Signup() {
     const [userName, setUserName] = useState('');
     const [age, setAge] = useState(18);
@@ -28,8 +29,9 @@ function Signup() {
     const submitRequest = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault();
-            const request = await fetch('http://localhost:5173/user/signup', {
+            const request = await fetch('http://localhost:3500/user/signup', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 }, body: JSON.stringify({
@@ -46,19 +48,19 @@ function Signup() {
         }
     }
     return (
-        <div>
+        <div id="container">
             <form onSubmit={submitRequest}>
-                <label>Enter Username</label><br />
-                <input type="text" required onChange={getInfo(setUserName)} /><br />
-                <label>Enter Age</label><br />
-                <input type="number" required onChange={getIntegerInfo(setAge)} /><br />
-                <label>Enter Password</label><br />
-                <input type="password" required onChange={getInfo(setPassword)} /><br />
-                <label>Enter Address</label><br />
-                <input type="text" required onChange={getInfo(setAddress)} /><br />
-                <label>Enter Contact Number</label><br />
-                <input type="text" required onChange={getInfo(setContactNumber)} /><br />
-                <button>Submit request</button>
+                <label className="label">Enter Username</label><br />
+                <input className="input" type="text" required onChange={getInfo(setUserName)} /><br />
+                <label className="label">Enter Age</label><br />
+                <input className="input" type="number" required onChange={getIntegerInfo(setAge)} /><br />
+                <label className="label">Enter Password</label><br />
+                <input className="input" type="password" required onChange={getInfo(setPassword)} /><br />
+                <label className="label">Enter Address</label><br />
+                <input className="input" type="text" required onChange={getInfo(setAddress)} /><br />
+                <label className="label">Enter Contact Number</label><br />
+                <input className="input" type="text" required onChange={getInfo(setContactNumber)} /><br />
+                <button id="button">Submit request</button>
             </form>
             {data && <p>{data}</p>}
         </div>
