@@ -1,13 +1,10 @@
 import { useState, useContext } from "react";
 import { AuthProvider } from "./AccessTokenProvider";
 import './css/Login.css';
-/*display: flex;
-    justify-content: center;
-    align-items: center; */
 function Login() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const [data, setData] = useState('');
+    const [data, setData] = useState('checking data');
     const context = useContext(AuthProvider);
     if (!context) {
         setData('Could not proceed something went wrong');
@@ -41,15 +38,20 @@ function Login() {
         }
     };
     return (
-        <div id="container-login">
-            <form onSubmit={Submit}>
-                <label className="label-login">Enter Username</label><br />
-                <input className="input-login" type="text" required onChange={getUserName} /><br />
-                <label className="label-login">Enter Password</label><br />
-                <input className="input-login" type="password" required onChange={getPassword} /><br />
-                <button id="button">Submit request</button>
-            </form>
-            {data && <p>{data}</p>}
+        <div>
+            <h1 id="login-header">Signin In Welcome Back</h1>
+            <div id="parent">
+                <div id="container-login">
+                    <form onSubmit={Submit}>
+                        <label className="label">Enter Username</label><br />
+                        <input className="input" type="text" required onChange={getUserName} /><br />
+                        <label className="label">Enter Password</label><br />
+                        <input className="input" type="password" required onChange={getPassword} /><br />
+                        <button className="button" id="login-button">Submit request</button>
+                    </form>
+                </div>
+            </div>
+            {data && <p id="data">{data}</p>}
         </div>
     )
 }

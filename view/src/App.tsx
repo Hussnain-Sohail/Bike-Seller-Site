@@ -5,16 +5,17 @@ import Login from "./Login";
 import UploadBike from "./UploadBike";
 import Protect from "./Protect";
 import { Routes, Route } from 'react-router';
-
+import HomePage from "./HomePage";
 function App() {
   return (
-    <Routes>
+    /*<Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/aboutus" element={<Aboutus />} />
       <Route path="/user/signup" element={<Signup />} />
       <Route path="/user/login" element={<Login />} />
       <Route path="/user/uploadbike" element={<Protect><UploadBike /></Protect>} />
-    </Routes>
+    </Routes> */
+    <HomePage />
   );
 }
 

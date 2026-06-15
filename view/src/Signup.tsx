@@ -48,21 +48,26 @@ function Signup() {
         }
     }
     return (
-        <div id="container">
-            <form onSubmit={submitRequest}>
-                <label className="label">Enter Username</label><br />
-                <input className="input" type="text" required onChange={getInfo(setUserName)} /><br />
-                <label className="label">Enter Age</label><br />
-                <input className="input" type="number" required onChange={getIntegerInfo(setAge)} /><br />
-                <label className="label">Enter Password</label><br />
-                <input className="input" type="password" required onChange={getInfo(setPassword)} /><br />
-                <label className="label">Enter Address</label><br />
-                <input className="input" type="text" required onChange={getInfo(setAddress)} /><br />
-                <label className="label">Enter Contact Number</label><br />
-                <input className="input" type="text" required onChange={getInfo(setContactNumber)} /><br />
-                <button id="button">Submit request</button>
-            </form>
-            {data && <p>{data}</p>}
+        <div>
+            <h1 id="signup-header">Welcome to Signing Up</h1>
+            <div id="parent">
+                <div id="signup-form-container">
+                    <form onSubmit={submitRequest}>
+                        <label className="label">Enter Username</label><br />
+                        <input className="input" type="text" required onChange={getInfo(setUserName)} /><br />
+                        <label className="label">Enter Age</label><br />
+                        <input className="input" type="number" required onChange={getIntegerInfo(setAge)} /><br />
+                        <label className="label">Enter Password</label><br />
+                        <input className="input" type="password" required onChange={getInfo(setPassword)} /><br />
+                        <label className="label">Enter Address</label><br />
+                        <input className="input" type="text" required onChange={getInfo(setAddress)} /><br />
+                        <label className="label">Enter Contact Number</label><br />
+                        <input className="input" type="text" required onChange={getInfo(setContactNumber)} /><br />
+                        <button className="button">Submit request</button>
+                    </form>
+                </div>
+            </div>
+            {data && <p id="data">{data}</p>}
         </div>
     )
 }

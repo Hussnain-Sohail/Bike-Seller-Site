@@ -14,7 +14,6 @@ function Protect({ children }: PropsWithChildren) {
 
     const getNewAccessToken = async () => {
         try {
-            console.log('ran');
             const request = await fetch('http://localhost:3500/user/newaccesstoken', {
                 method: 'POST',
                 credentials: 'include',

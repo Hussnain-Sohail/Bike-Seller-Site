@@ -3,9 +3,9 @@ import './css/MainPage.css';
 function MainPage() {
     return (
         <div>
-            <h1>Welcome to Bikes</h1>
-            <div id="container-main-page">
-                <div id="inner">
+            <h1 id="welcome-header">Welcome to Bikes</h1>
+            <div className="parent">
+                <div id="container-main-page">
                     <Link to='/user/signup'>
                         <button className="button">Create My Account</button>
                     </Link><br />
@@ -14,9 +14,6 @@ function MainPage() {
                     </Link><br />
                     <Link to='/aboutus'>
                         <button className="button">Learn more about us</button>
-                    </Link><br />
-                    <Link to='/user/uploadbike'>
-                        <button className="button">Upload Bike</button>
                     </Link><br />
                 </div>
             </div>
