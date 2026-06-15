@@ -1,8 +1,8 @@
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
 dotenv.config();
-import User from '../model/UserSchema.mjs';
-import Bike from '../model/ProductSchema.mjs';
+import User from '../../model/UserSchema.mts';
+import Bike from '../../model/BikeSchema.mts';
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_SECRET,

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import type { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import User from '../model/UserSchema.mts';
+import User from '../../model/UserSchema.mts';
 import { z } from 'zod';
 
 const userData = z.object({
@@ -52,7 +52,7 @@ async function Signup(req: Request, res: Response): Promise<void> {
         );
 
         res.cookie('RefreshToken', RefreshToken, { httpOnly: true, maxAge: 5 * 1000 * 60 });
-        res.status(200).json({ message: 'Account created successfully' });
+        res.status(200).json({ message: 'Account created successfully', AccessToken });
     }
     catch (error) {
         console.error(error);

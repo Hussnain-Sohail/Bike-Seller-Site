@@ -1,8 +1,9 @@
-import Bike from '../model/BikeSchema.mts';
+import Bike from '../../model/BikeSchema.mts';
 import type { Request, Response } from 'express';
 
 async function SearchBike(req: Request, res: Response): Promise<void> {
     try {
+        console.log('request hit ?')
         if (!req.body) {
             res.status(400).json({ message: "Bike name not found" });
             return;
@@ -11,7 +12,7 @@ async function SearchBike(req: Request, res: Response): Promise<void> {
         const { bikeName } = req.body;
 
         if (!bikeName) {
-            res.status(401).json({ message: 'Bike name required' });
+            res.status(401).json({ message: 'Bike name required', bikes: [] });
             return;
         }
 
@@ -19,7 +20,8 @@ async function SearchBike(req: Request, res: Response): Promise<void> {
         const name: string | undefined = bikeName.split(' ')[1];
 
         if (company === undefined || name === undefined) {
-            res.status(401).json({ message: 'Please enter valid format eg: (Yamaga R1) etc' })
+            res.status(401).json({ message: 'Please enter valid format eg: (Yamaga R1) etc', bikes: [] });
+            return;
         }
 
         const bikes = await Bike.aggregate([
@@ -35,10 +37,11 @@ async function SearchBike(req: Request, res: Response): Promise<void> {
         ]);
 
         if (bikes.length === 0) {
-            res.status(400).json({ message: `No Bikes of name ${bikeName} found` });
+            res.status(400).json({ message: `No Bikes of name ${bikeName} found`, bikes: [] });
             return;
         }
 
+        console.log('request end ?')
         res.status(200).json({ messsage: 'Bikes found', bikes });
     }
     catch (error) {

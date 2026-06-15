@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import type { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import User from '../model/UserSchema.mts';
+import User from '../../model/UserSchema.mts';
 import { z } from 'zod';
 
 const userData = z.object({
@@ -12,12 +12,6 @@ async function Login(req: Request, res: Response): Promise<void> {
     try {
         const { userName, password } = req.body;
 
-        console.log({
-            userName,
-            password,
-            nameType: typeof userName,
-            passwordType: typeof password,
-        });
         const validData = userData.safeParse({ userName, password });
 
         if (!validData.success) {

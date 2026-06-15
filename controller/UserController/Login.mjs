@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import User from '../model/UserSchema.mts';
+import User from '../../model/UserSchema.mts';
 async function Login(req, res) {
     try {
         const { userName, password } = req.body;
