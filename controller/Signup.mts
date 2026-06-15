@@ -2,47 +2,40 @@ import jwt from 'jsonwebtoken';
 import type { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../model/UserSchema.mts';
+import { z } from 'zod';
 
-interface userData {
-    userName: string,
-    age: number,
-    password: string,
-    address: string,
-    contactNumber: string,
-}
+const userData = z.object({
+    userName: z.string(),
+    age: z.number().min(18),
+    password: z.string().min(6),
+    address: z.string(),
+    contactNumber: z.string(),
+});
 async function Signup(req: Request, res: Response): Promise<void> {
     try {
-        if (!req.body) {
-            res.status(400).json({ message: 'Could not Create Account' });
-            return;
-        }
-        const user = req.body as userData;
-        if (!user.userName || !user.age || !user.password || !user.address || !user.contactNumber) {
-            res.status(400).json({ message: 'All fields are required for Creating an Account' });
+
+        const validData = userData.safeParse(req.body);
+
+        if (!validData.success) {
+            res.status(400).json({ message: validData.error.issues[0]?.message ?? "Invalid data entered" });
             return;
         }
 
-        const checkDuplicate = await User.findOne({ Name: user.userName });
+        const checkDuplicate = await User.findOne({ Name: validData.data.userName });
 
         if (checkDuplicate) {
             res.status(400).json({ message: 'Username is already taken' });
             return;
-        } else if (user.age < 18) {
-            res.status(400).json({ message: 'You must be atleast 18 to create an Account' });
-            return;
-        } else if (user.password.length < 6) {
-            res.status(400).json({ message: 'Password must be atleast 6 characters long' });
-            return;
         }
 
-        const hashedPassword: string = await bcrypt.hash(user.password, 10);
+        const hashedPassword: string = await bcrypt.hash(validData.data.password, 10);
 
         const newUser = new User({
-            Name: user.userName,
-            Age: user.age,
+            Name: validData.data.userName,
+            Age: validData.data.age,
             Password: hashedPassword,
-            Address: user.address,
-            contactNumber: user.contactNumber
+            Address: validData.data.address,
+            contactNumber: validData.data.contactNumber
         });
 
         await newUser.save();

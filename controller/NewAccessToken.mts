@@ -6,9 +6,8 @@ dotenv.config();
 async function NewAccessTokenProvider(req: Request, res: Response): Promise<void> {
     try {
         const RefreshToen: string = req.cookies.RefreshToken;
-
+        console.log(`refresh token ${RefreshToen}`);
         if (!RefreshToen) {
-            console.log('problem in refresh token');
             res.status(400).json({ message: 'Access not allowed' });
             return;
         }
@@ -18,11 +17,10 @@ async function NewAccessTokenProvider(req: Request, res: Response): Promise<void
         ) as JwtPayload & { userId: string };
 
         if (!decoded) {
-            console.log('problem in decoding');
             res.status(400).json({ message: 'Access not allowed' });
             return;
         }
-        console.log('went pass');
+
         const NewAccessToken = jwt.sign(
             { userId: decoded.userId },
             process.env.ACCESS_TOKEN_SECRET!,

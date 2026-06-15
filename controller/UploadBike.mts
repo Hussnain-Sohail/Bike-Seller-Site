@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import type { Request, Response } from 'express';
 dotenv.config();
 import User from '../model/UserSchema.mts';
-import Bike from '../model/ProductSchema.mts';
+import Bike from '../model/BikeSchema.mts';
 import type { Types } from 'mongoose';
 
 cloudinary.config({
@@ -23,6 +23,7 @@ interface bikeData {
 };
 async function UploadBike(req: Request, res: Response): Promise<void> {
     try {
+        console.log('request hit ?')
         if (!req.body) {
             res.status(400).json({ message: 'Something went wrong' });
             return;
