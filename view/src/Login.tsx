@@ -41,7 +41,7 @@ function Login() {
                 return;
 
             setTimeout(() => {
-                navigate('/user/homepage')
+                navigate('/user/menu')
             }, 3000);
         }
         catch (error) {

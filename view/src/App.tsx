@@ -5,7 +5,9 @@ import Login from "./Login";
 import UploadBike from "./UploadBike";
 import Protect from "./Protect";
 import { Routes, Route } from 'react-router';
-import HomePage from "./HomePage";
+import UserMenuePage from "./UserMenuPage";
+import SearchBike from "./SearchBike";
+
 function App() {
   return (
     <Routes>
@@ -14,6 +16,8 @@ function App() {
       <Route path="/user/signup" element={<Signup />} />
       <Route path="/user/login" element={<Login />} />
       <Route path="/user/uploadbike" element={<Protect><UploadBike /></Protect>} />
+      <Route path="/user/menu" element={<Protect><UserMenuePage /></Protect>} />
+      <Route path="/user/searchbike" element={<SearchBike />} />
     </Routes>
   );
 }
