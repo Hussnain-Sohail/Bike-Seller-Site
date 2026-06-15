@@ -1,0 +1,14 @@
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import UserControllerRouter from '../routes/UserControllerRouter.mts';
+import Connect from '../model/Connect.mts';
+import cors from 'cors';
+const App = express();
+App.use(express.json());
+App.use(cookieParser());
+App.use(cors());
+Connect();
+App.use('/', UserControllerRouter);
+App.listen(process.env.Port, () => console.log('server is runnin'));
