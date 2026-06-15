@@ -1,15 +1,19 @@
 import { useState, useContext } from "react";
 import { AuthProvider } from "./AccessTokenProvider";
 import './css/Login.css';
+import { useNavigate } from "react-router-dom";
 function Login() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [data, setData] = useState('checking data');
     const context = useContext(AuthProvider);
+    const navigate = useNavigate();
     if (!context) {
-        setData('Could not proceed something went wrong');
+        setData('Could not continue something went wrong');
         return;
     }
+    const { setAccessToken } = context;
+
     const getUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserName(event.target.value);
     };
@@ -31,6 +35,14 @@ function Login() {
             });
             const response = await request.json();
             setData(response.message);
+            setAccessToken(response.AccessToken);
+
+            if (!request.ok)
+                return;
+
+            setTimeout(() => {
+                navigate('/user/homepage')
+            }, 3000);
         }
         catch (error) {
             console.error(error);

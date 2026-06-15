@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthProvider } from "./AccessTokenProvider";
-import './css/Signup.css'
+import './css/Signup.css';
+import { useNavigate } from "react-router-dom";
 function Signup() {
     const [userName, setUserName] = useState('');
     const [age, setAge] = useState(18);
@@ -8,6 +9,7 @@ function Signup() {
     const [address, setAddress] = useState('');
     const [contactNumber, setContactNumber] = useState('');
     const [data, setData] = useState('');
+    const navigate = useNavigate();
     const context = useContext(AuthProvider);
     if (!context) {
         setData('Could not continue something went wrong');
@@ -41,6 +43,14 @@ function Signup() {
             const response = await request.json();
             setData(response.message);
             setAccessToken(response.AccessToken);
+
+            if (!request.ok)
+                return;
+
+            setTimeout(() => {
+                navigate('/user/homepage');
+            }, 3000);
+
         }
         catch (error) {
             console.error(error);
