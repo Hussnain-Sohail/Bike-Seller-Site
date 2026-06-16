@@ -1,5 +1,5 @@
-import Signup from "../controller/Signup.mts";
-import Login from '../controller/Login.mts';
+import Signup from "../controller/UserController/Signup.mjs";
+import Login from '../controller/UserController/Login.mts';
 import express from 'express';
 const UserControllerRouter = express.Router();
 
