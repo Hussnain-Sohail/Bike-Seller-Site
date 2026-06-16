@@ -11,7 +11,7 @@ function UserMenuePage() {
 
             <div id='parent-container'>
                 <div id='font-container'>
-                    <Link to='/user/searchike'>
+                    <Link to='/user/searchbike'>
                         <FontAwesomeIcon icon={faSearch} /><br />
                     </Link>
                     <Link to='/user/settings'>

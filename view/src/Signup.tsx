@@ -11,11 +11,8 @@ function Signup() {
     const [data, setData] = useState('');
     const navigate = useNavigate();
     const context = useContext(AuthProvider);
-    if (!context) {
-        setData('Could not continue something went wrong');
-        return;
-    }
-    const { setAccessToken } = context;
+
+    const { setAccessToken } = context!;
 
     const getInfo = (setValue: React.Dispatch<React.SetStateAction<string>>) => {
         return (event: React.ChangeEvent<HTMLInputElement>) => (

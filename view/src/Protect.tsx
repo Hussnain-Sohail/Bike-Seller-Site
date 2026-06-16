@@ -6,11 +6,8 @@ function Protect({ children }: PropsWithChildren) {
 
     const [data, setData] = useState('');
     const context = useContext(AuthProvider);
-    if (!context || context === null) {
-        setData('Loading...... Please wait 1');
-        return;
-    }
-    const { accessToken, setAccessToken } = context;
+
+    const { accessToken, setAccessToken } = context!;
 
     const getNewAccessToken = async () => {
         try {

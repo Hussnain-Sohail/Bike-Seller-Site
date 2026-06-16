@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthProvider } from "./AccessTokenProvider";
 
 function UploadBike() {
     const [comapnyName, setCompanyName] = useState('');
@@ -8,6 +9,9 @@ function UploadBike() {
     const [additioanlInformation, setAdditioanlInformation] = useState('');
     const [imageURL, setImageURL] = useState('');
     const [data, setData] = useState('');
+
+    const context = useContext(AuthProvider);
+    const { accessToken } = context!;
 
     const getValue = (setValue: React.Dispatch<React.SetStateAction<string>>) => {
         return (event: React.ChangeEvent<HTMLInputElement>) => (
@@ -37,7 +41,8 @@ function UploadBike() {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${accessToken}`,
                 }, body: JSON.stringify({
                     comapnyName,
                     bikeName,

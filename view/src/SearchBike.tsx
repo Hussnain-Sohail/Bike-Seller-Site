@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthProvider } from './AccessTokenProvider';
 
 type bikeData = {
     _id: string,
@@ -17,28 +18,32 @@ type bikeData = {
 function SearchBike() {
 
     const [bikeName, setBikeName] = useState('');
-    const [data, setData] = useState('');
+    const [data, setData] = useState('checking');
     const [bikes, setBikes] = useState<bikeData[]>([]);
+
+    const context = useContext(AuthProvider);
+
+    const { accessToken } = context!;
 
     const getBikeName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setBikeName(event.target.value);
     }
 
-    const Submit = async (event: any) => {
-        event.preventDefault();
+    const Submit = async () => {
         try {
             const request = await fetch('http://localhost:3500/user/searchbike', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${accessToken}`,
                 }, body: JSON.stringify({
                     bikeName,
                 })
             });
             const response = await request.json();
             setBikes(response.bikes);
-            setData('Request successfull');
+            setData(response.message);
         }
         catch (error) {
             console.error(error);
@@ -50,10 +55,10 @@ function SearchBike() {
         <div>
             <FontAwesomeIcon icon={faSearch} />
             <button onClick={Submit}>Search</button>
-            <input type='text' required placeholder='enter bike name eg Yamaha R1' onChange={getBikeName} /><br />
+            <input type='text' onChange={getBikeName} required /><br />
             {data && <p>{data}</p>}
             <div>
-                {bikes.length > 0 && bikes.map((bike, index) => (
+                {bikes && bikes.map((bike, index) => (
                     <Link to={`/bike/details/${bike._id}`}>
                         <div className='bike-card' key={index}>
                             <img src={bike.imageURL} />

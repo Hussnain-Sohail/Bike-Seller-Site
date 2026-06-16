@@ -7,17 +7,21 @@ import Protect from "./Protect";
 import { Routes, Route } from 'react-router';
 import UserMenuePage from "./UserMenuPage";
 import SearchBike from "./SearchBike";
+import SeeUploadedBikes from "./SeeUploadedBikes";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
-      <Route path="/aboutus" element={<Aboutus />} />
+
       <Route path="/user/signup" element={<Signup />} />
       <Route path="/user/login" element={<Login />} />
-      <Route path="/user/uploadbike" element={<Protect><UploadBike /></Protect>} />
+      <Route path="/aboutus" element={<Aboutus />} />
+
       <Route path="/user/menu" element={<Protect><UserMenuePage /></Protect>} />
-      <Route path="/user/searchbike" element={<SearchBike />} />
+      <Route path="/user/uploadbike" element={<Protect><UploadBike /></Protect>} />
+      <Route path="/user/searchbike" element={<Protect><SearchBike /></Protect>} />
+      <Route path="/user/see/uploadedbikes" element={<Protect><SeeUploadedBikes /></Protect>} />
     </Routes>
   );
 }
