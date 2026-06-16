@@ -5,6 +5,7 @@ dotenv.config();
 
 async function NewAccessTokenProvider(req: Request, res: Response): Promise<void> {
     try {
+        console.log('request hit new token')
         const RefreshToen: string = req.cookies.RefreshToken;
         if (!RefreshToen) {
             res.status(400).json({ message: 'Access not allowed' });
@@ -25,6 +26,7 @@ async function NewAccessTokenProvider(req: Request, res: Response): Promise<void
             process.env.ACCESS_TOKEN_SECRET!,
             { expiresIn: "60s" }
         );
+        console.log('request ended in new token ?')
         res.status(200).json({ AccessToken: NewAccessToken });
     }
     catch (error) {
