@@ -9,11 +9,10 @@ const userData = z.object({
     age: z.number().min(18),
     password: z.string().min(6),
     address: z.string(),
-    contactNumber: z.string(),
+    contactNumber: z.string().length(11),
 });
 async function Signup(req: Request, res: Response): Promise<void> {
     try {
-
         const validData = userData.safeParse(req.body);
 
         if (!validData.success) {
@@ -35,7 +34,8 @@ async function Signup(req: Request, res: Response): Promise<void> {
             Age: validData.data.age,
             Password: hashedPassword,
             Address: validData.data.address,
-            contactNumber: validData.data.contactNumber
+            contactNumber: validData.data.contactNumber,
+            accountCreatedAt: new Date().toISOString(),
         });
 
         await newUser.save();

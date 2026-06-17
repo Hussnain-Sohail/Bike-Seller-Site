@@ -12,7 +12,6 @@ const userData = z.object({
 });
 async function Login(req: Request, res: Response): Promise<void> {
     try {
-        console.log('request recieved ?')
         const validData = userData.safeParse(req.body);
 
         if (!validData.success) {
