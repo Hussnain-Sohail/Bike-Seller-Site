@@ -20,6 +20,9 @@ function UserMenuePage() {
                     <Link to='/user/remove/bike'>
                         <button className='button'>Remove Bike</button>
                     </Link>
+                    <Link to='/user/updatetier'>
+                        <button className='button'>Update to Pro</button>
+                    </Link>
                 </div>
             </div>
             <footer id='footer-fonts'>
@@ -33,7 +36,7 @@ function UserMenuePage() {
                     <FontAwesomeIcon icon={faGear} /><br />
                 </Link>
 
-                <Link to='/user/account'>
+                <Link to='/user/myaccount'>
                     <p>Account</p>
                     <FontAwesomeIcon icon={faUser} /><br />
                 </Link>

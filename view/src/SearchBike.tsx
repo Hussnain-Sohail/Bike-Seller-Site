@@ -59,7 +59,7 @@ function SearchBike() {
             {data && <p>{data}</p>}
             <div>
                 {bikes && bikes.map((bike, index) => (
-                    <Link to={`/bike/details/${bike._id}`}>
+                    <Link to={`/user/bikedetails/${bike._id}`}>
                         <div className='bike-card' key={index}>
                             <img src={bike.imageURL} />
                             <p>Name {bike.companyName} {bike.bikeName}</p>

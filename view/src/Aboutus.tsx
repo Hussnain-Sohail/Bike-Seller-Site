@@ -15,7 +15,7 @@ function Aboutus() {
             <p>At our core, we believe buying and selling bikes should be simple, accessible, and affordable for everyone. Our platform was created to bring riders, enthusiasts, collectors, and everyday commuters together in one convenient online marketplace where they can confidently connect and trade bikes. Whether you're searching for your first motorcycle, upgrading to a newer model, or looking to sell a bike you no longer use, we provide the tools and space to make the process as smooth as possible. Users can create free accounts, manage their listings, explore available bikes, and communicate with potential buyers or sellers without worrying about subscription costs or hidden fees.</p>
             <p>ur mission is to build a trusted community where quality bikes can easily find new owners. We understand that purchasing a bike is an important decision, which is why we strive to make browsing and comparing listings straightforward and transparent. Sellers can showcase their bikes with detailed information and images, helping buyers make informed choices, while buyers gain access to a growing collection of bikes from different brands, styles, and price ranges. By keeping the platform completely free, we aim to remove barriers and create opportunities for more people to participate in the marketplace. As our community grows, we remain committed to providing a reliable, user-friendly experience that helps connect riders and keeps the passion for biking moving forward.</p>
             <Link to='/'>
-                <button>Go to Sign In page</button>
+                <button className='button'>Go to Sign In page</button>
             </Link>
         </div>
     );

@@ -2,11 +2,11 @@ import { useState, useContext } from "react";
 import { AuthProvider } from "./AccessTokenProvider";
 
 function UploadBike() {
-    const [comapnyName, setCompanyName] = useState('');
+    const [companyName, setCompanyName] = useState('');
     const [bikeName, setBikeName] = useState('');
     const [bikePrice, setBikePrice] = useState(0);
-    const [bikeModel, setBikeModel] = useState('');
-    const [additioanlInformation, setAdditioanlInformation] = useState('');
+    const [bikeModel, setBikeModel] = useState(0);
+    const [additionalInformation, setAdditionalInformation] = useState('');
     const [imageURL, setImageURL] = useState('');
     const [data, setData] = useState('');
 
@@ -37,6 +37,7 @@ function UploadBike() {
     const Submit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
+            console.log(`bike ${bikeName}`)
             const request = await fetch('http://localhost:3500/user/uploadbike', {
                 method: 'POST',
                 credentials: 'include',
@@ -44,11 +45,11 @@ function UploadBike() {
                     'Content-Type': 'application/json',
                     'authorization': `Bearer ${accessToken}`,
                 }, body: JSON.stringify({
-                    comapnyName,
+                    companyName,
                     bikeName,
                     bikePrice,
                     bikeModel,
-                    additioanlInformation,
+                    additionalInformation,
                     imageURL,
                 })
             });
@@ -70,9 +71,9 @@ function UploadBike() {
                 <label>Enter Price</label><br />
                 <input type="number" onChange={getIntegerValue(setBikePrice)} required /><br />
                 <label>Enter Model</label><br />
-                <input type="text" onChange={getValue(setBikeModel)} required /><br />
+                <input type="text" onChange={getIntegerValue(setBikeModel)} required /><br />
                 <label>Additioanal Information</label><br />
-                <input type="comment" onChange={getValue(setAdditioanlInformation)} /><br />
+                <input type="comment" onChange={getValue(setAdditionalInformation)} /><br />
                 <label>Upload Bike Image</label><br />
                 <input type="file" onChange={getImage} required /><br />
                 <button>Upload Bike</button>

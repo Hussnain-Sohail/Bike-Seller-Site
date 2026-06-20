@@ -8,7 +8,11 @@ import { Routes, Route } from 'react-router';
 import UserMenuePage from "./UserMenuPage";
 import SearchBike from "./SearchBike";
 import SeeUploadedBikes from "./SeeUploadedBikes";
-
+import MyAccount from "./MyAccount";
+import BikeDetails from "./SeeBikeDetails";
+import Setting from "./Settings";
+import ChangeUserName from "./ChangeUserName";
+import UpdateAccountTier from "./UpdateAccountTier";
 function App() {
   return (
     <Routes>
@@ -22,6 +26,11 @@ function App() {
       <Route path="/user/uploadbike" element={<Protect><UploadBike /></Protect>} />
       <Route path="/user/searchbike" element={<Protect><SearchBike /></Protect>} />
       <Route path="/user/see/uploadedbikes" element={<Protect><SeeUploadedBikes /></Protect>} />
+      <Route path="user/myaccount" element={<Protect><MyAccount /></Protect>} />
+      <Route path="/user/bikedetails/:bikeid" element={<Protect><BikeDetails /></Protect>} />
+      <Route path="/user/settings" element={<Protect><Setting /></Protect>} />
+      <Route path="/user/settings/changeusername" element={<Protect><ChangeUserName /></Protect>} />
+      <Route path="/user/updatetier" element={<Protect><UpdateAccountTier /></Protect>} />
     </Routes>
   );
 }

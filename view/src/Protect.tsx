@@ -11,6 +11,7 @@ function Protect({ children }: PropsWithChildren) {
 
     const getNewAccessToken = async () => {
         try {
+            console.log('protect ran');
             const request = await fetch('http://localhost:3500/user/newaccesstoken', {
                 method: 'POST',
                 credentials: 'include',
@@ -22,6 +23,7 @@ function Protect({ children }: PropsWithChildren) {
             }
             const response = await request.json();
             setAccessToken(response.AccessToken);
+            console.log('protect ended');
         }
         catch (error) {
             console.error(error);
