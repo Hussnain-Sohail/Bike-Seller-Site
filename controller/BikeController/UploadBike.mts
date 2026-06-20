@@ -7,6 +7,7 @@ import User from '../../model/UserSchema.mts';
 import Bike from '../../model/BikeSchema.mts';
 import type { Types } from 'mongoose';
 import { z } from 'zod';
+import stripe from 'stripe';
 
 dotenv.config({ path: '/server/.env' });
 cloudinary.config({
@@ -38,8 +39,10 @@ async function UploadBike(req: Request, res: Response): Promise<void> {
         if (!findUser) {
             res.status(400).json({ message: 'User not found' });
             return;
+        } else if (findUser.bikeProduct.length >= 5 && findUser.Tier === 'regular') {
+            res.status(403).json({ message: 'You have 5 products uploaded. Update to pro from regular to Upload more products' });
+            return;
         }
-
         const uploaded: UploadApiResponse = await cloudinary.uploader.upload(validData.data.imageURL);
 
         const newBike = new Bike({

@@ -8,12 +8,11 @@ import { client } from '../../server/server.mts';
 
 const userData = z.object({
     userName: z.string(),
-    password: z.string(),
+    password: z.string().min(6),
 });
 async function Login(req: Request, res: Response): Promise<void> {
     try {
         const validData = userData.safeParse(req.body);
-
         if (!validData.success) {
             res.status(400).json({ message: validData.error.issues[0]?.message ?? "Invvalid input" });
             return;
@@ -26,15 +25,15 @@ async function Login(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        const key = `user:${validData.data.userName}`;
-        await client.set(key, 0, { NX: true });
-
-        const totalAttempt = Number(await client.get(key));
+        const key: string = `user:${validData.data.userName}`;
+        await client.set(key, 0, { NX: true, EX: 30 });
+        const totalAttempt: number = Number(await client.get(key));
 
         if (totalAttempt >= 3) {
-            res.status(403).json({ message: 'Reached maximum password attempts. Please wait 5 seconds to try again' });
-            await client.expire(key, 5);
-            console.log('free now');
+            res.status(403).json({ message: 'Reached maximum password attempts. Please wait to try again' });
+            return;
+        } else if (!client.exists(key)) {
+            res.status(200).json({ message: 'Yoc can try again now' });
             return;
         }
 
@@ -44,9 +43,8 @@ async function Login(req: Request, res: Response): Promise<void> {
             await client.incr(key);
             res.status(403).json({ message: 'Invalid password. Access prohibited' });
             return;
-        }
-
-        client.del(key);
+        } else
+            await client.del(key);
 
         const AccessToken = jwt.sign(
             { userId: findUser!._id! },
