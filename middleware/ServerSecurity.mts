@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JwtPayload } from 'jsonwebtoken';
+import type { JwtPayload } from 'jsonwebtoken';
 import type { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -9,7 +9,7 @@ async function ServerSecurity(req: Request, res: Response, next: NextFunction): 
             res.status(403).json({ message: 'Invalid token not found. Access denied' });
             return;
         } const authHeader: string = req.headers['authorization'];
-        const AccessToken: string = authHeader.split(' ')[1];
+        const AccessToken: string = authHeader.split(' ')[1]!;
         if (!AccessToken) {
             res.status(400).json({ message: 'Access denied' });
             return;
@@ -33,3 +33,4 @@ async function ServerSecurity(req: Request, res: Response, next: NextFunction): 
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+export default ServerSecurity;
