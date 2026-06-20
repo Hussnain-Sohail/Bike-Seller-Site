@@ -47,7 +47,7 @@ async function Signup(req: Request, res: Response): Promise<void> {
         );
         const RefreshToken = jwt.sign(
             { userId: newUser._id },
-            process.env.Refresh_TOKEN_SECRET!,
+            process.env.REFREH_TOKEN_SECRET!,
             { expiresIn: '5min' },
         );
 

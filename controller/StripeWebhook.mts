@@ -10,19 +10,19 @@ async function StripeWebhook(req: Request, res: Response) {
         );
 
         if (event.type === 'checkout.session.completed') {
-            const userId: string = event.data.object.metadata!.useerId!;
+            const userId: string = event.data.object.metadata!.userId!;
 
             const findUser = await User.findById(userId);
 
             findUser!.Tier = 'Pro';
 
             await findUser!.save();
-            res.status(200);
+            res.sendStatus(200);
         }
     }
     catch (error) {
         console.error(error);
-        res.status(500);
+        res.sendStatus(500);
     }
 }
 export default StripeWebhook;
