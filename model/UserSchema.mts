@@ -1,11 +1,13 @@
 import mongoose, { Model } from 'mongoose';
-import Bike from './ProductSchema.mjs';
+import Bike from './BikeSchema.mts';
 interface IUser {
     Name: string,
     Age: number,
     Password: string,
+    Tier: string,
     Address: string,
     contactNumber: string,
+    accountCreatedAt: string,
     bikeProduct: mongoose.Types.ObjectId[],
 };
 
@@ -13,8 +15,13 @@ const userSchema = new mongoose.Schema({
     Name: String,
     Age: Number,
     Password: String,
+    Tier: {
+        type: String,
+        default: 'regular',
+    },
     Address: String,
     contactNumber: String,
+    accountCreatedAt: String,
     bikeProduct: {
         type: [
             {
